@@ -1,0 +1,90 @@
+/* register.css */
+body {
+    text-align: center;
+    padding: 40px 0;
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+  }
+  
+  form {
+    max-width: 500px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  input {
+    width: 100%;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+  
+  button {
+    font-size: 1.2rem;
+    padding: 12px 24px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  a:hover {
+    color: #0056b3;
+  }
+  /* Style for the radio button group */
+  .button-group {
+    display: flex;
+    justify-content: center; /* Center the buttons */
+    margin-bottom: 20px; /* Space below the button group */
+  }
+  
+  .role-button {
+    padding: 12px 20px; /* Padding inside the button */
+    margin: 0 10px; /* Space between buttons */
+    font-size: 1rem; /* Font size for buttons */
+    border: none; /* No border */
+    border-radius: 6px; /* Rounded corners */
+    background-color: #007bff; /* Default background color */
+    color: white; /* Text color */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth transition for hover */
+  }
+  
+  .role-button:hover {
+    background-color: #0056b3; /* Darker background on hover */
+  }
+  
+  .role-button.active {
+    background-color: #0056b3; /* Active button background color */
+  }
+
+  .back-button {
+    padding: 12px 20px;
+    background-color: #6c757d; /* Back button color */
+    color: white; /* Text color */
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition for hover */
+    margin-top: 20px;
+}
+  

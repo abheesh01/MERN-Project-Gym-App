@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import '../styles/register.css';  // Import the register CSS
+
 
 const RegisterPage = () => {
   // State to hold form values
@@ -105,32 +107,25 @@ const RegisterPage = () => {
           onChange={handleChange}
           required
         />
-        
-        <div>
-          <label>
-            <input
-              type="radio"
-              value="trainee"
-              checked={formData.userType === 'trainee'}
-              onChange={() => setFormData({ ...formData, userType: 'trainee' })}
-            />
-            Trainee
-          </label>
-          <label>
-            <input
-              type="radio"
-              value="trainer"
-              checked={formData.userType === 'trainer'}
-              onChange={() => setFormData({ ...formData, userType: 'trainer' })}
-            />
-            Trainer
-          </label>
+        <div className="button-group">
+            <button
+                type="button"
+                className={`role-button ${formData.userType === 'trainee' ? 'active' : ''}`}
+                onClick={() => setFormData({ ...formData, userType: 'trainee' })}
+                >Trainee
+            </button>
+            <button
+                type="button"
+                className={`role-button ${formData.userType === 'trainer' ? 'active' : ''}`}
+                onClick={() => setFormData({ ...formData, userType: 'trainer' })}
+            >Trainer
+            </button>
         </div>
         
         <button type="submit">Register</button>
         <p>Already have an account? <a href="/signin">Sign In</a></p>
         <Link to="/">
-                <button>Back</button>
+                <button className='back-button'>Back</button>
         </Link>
         
       </form>
