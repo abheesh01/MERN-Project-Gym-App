@@ -26,6 +26,7 @@ const SignInPage: React.FC<SignInProps> = ({ onSignIn }) => {
     navigate('/dashboard');
   };
 
+
   return (
     <div className="auth-container">
       <h1 className="auth-title">Sign In</h1>
@@ -49,6 +50,8 @@ const SignInPage: React.FC<SignInProps> = ({ onSignIn }) => {
       <p className="auth-text">
         Don't have an account? <Link to="/register" className="auth-link">Register</Link>
       </p>
+
+
     </div>
   );
 };

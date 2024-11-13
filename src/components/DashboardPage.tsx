@@ -1,4 +1,6 @@
 import React from "react";
+import { Link, useNavigate } from 'react-router-dom';
+
 import '../styles/dashboard.css';
 
 interface FormData {
@@ -23,6 +25,11 @@ const getRandomQuote = () => {
 }
 
 const DashboardPage: React.FC<FormData> = ({ name, gym, workoutType, timings, idealRate, userType, onSignOut }) => {
+    const navigate = useNavigate();
+    const handleSearchClick = () => {
+        navigate('/search');
+    }
+
     return (
         <div className="dashboard-container">
             <h1 className="dashboard-title">Welcome, {name}!</h1>
@@ -37,6 +44,7 @@ const DashboardPage: React.FC<FormData> = ({ name, gym, workoutType, timings, id
 
             </div>
 
+            <button className="search-button" onClick={handleSearchClick}>Search</button>
             <button className="sign-out-button" onClick={onSignOut}>Sign Out</button>
         </div>
     )
