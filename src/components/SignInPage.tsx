@@ -1,14 +1,29 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../styles/signin.css';
 
-const SignInPage: React.FC = () => {
+
+interface SignInProps {
+  onSignIn: () => void;
+}
+
+const SignInPage: React.FC<SignInProps> = ({ onSignIn }) => {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+
+  const navigate = useNavigate();
+
+  const handleSignIn = () => {
+    onSignIn(); // Call the onSignIn function passed as a prop
+  };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     console.log('Sign In Data:', { username, password });
+
+    handleSignIn();
+
+    navigate('/dashboard');
   };
 
   return (
