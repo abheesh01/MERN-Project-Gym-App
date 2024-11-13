@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Routes, NavLink, Navigate  } from 'reac
 import RegisterPage from './components/RegisterPage.tsx';
 import SignInPage from './components/SignInPage.tsx';
 import DashboardPage from './components/DashboardPage.tsx';
-import SearchPage from './components/SearchPage.tsx';
 
 const App: React.FC = () => {
   const [signedIn, setSignedIn] = React.useState(false);
@@ -33,8 +32,6 @@ const App: React.FC = () => {
             <Navigate to="/" replace />
           )}
         />
-
-        <Route path="/search" element={<SearchPage />}/>
       </Routes>
     </Router>
   );

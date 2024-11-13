@@ -1,11 +1,13 @@
 /* src/styles/signin.css */
 
+/* Page Body Styling */
 body {
     text-align: center;
     background-color: #f0f0f0;
     padding: 40px 0;
 }
 
+/* Container for Authentication Form */
 .auth-container {
     max-width: 500px;
     margin: 0 auto;
@@ -15,18 +17,21 @@ body {
     border-radius: 8px;
 }
 
+/* Title Styling */
 .auth-title {
     font-size: 2.5rem;
     margin-bottom: 20px;
     color: #333;
 }
 
+/* Form Layout */
 .auth-form {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
+/* Input Fields Styling */
 .auth-form input {
     width: 100%;
     padding: 12px;
@@ -36,6 +41,7 @@ body {
     border-radius: 6px;
 }
 
+/* Submit Button Styling */
 .auth-submit-button {
     width: 100%;
     padding: 12px 20px;
@@ -52,12 +58,14 @@ body {
     background-color: #0056b3;
 }
 
+/* Text Below Form */
 .auth-text {
     margin-top: 20px;
     font-size: 1rem;
     color: #666;
 }
 
+/* Link Styling for Navigation to Sign In/Up */
 .auth-link {
     color: #007bff;
     text-decoration: none;

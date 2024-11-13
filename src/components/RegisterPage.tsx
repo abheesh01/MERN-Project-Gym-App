@@ -1,8 +1,8 @@
-// src/components/RegisterPage.tsx
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/register.css';
 
+// Interface for form data fields
 interface FormData {
   firstName: string;
   lastName: string;
@@ -19,6 +19,7 @@ interface FormData {
 }
 
 const RegisterPage: React.FC = () => {
+  // State to manage form data
   const [formData, setFormData] = useState<FormData>({
     firstName: '',
     lastName: '',
@@ -34,11 +35,13 @@ const RegisterPage: React.FC = () => {
     userType: 'trainee',
   });
 
+  // Handle changes in input fields
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  // Handle form submission
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     console.log('Form Data:', formData);
@@ -48,6 +51,7 @@ const RegisterPage: React.FC = () => {
     <div className="auth-container">
       <h1 className="auth-title">Register</h1>
       <form className="auth-form" onSubmit={handleSubmit}>
+        {/* Text inputs for basic information */}
         <input
           type="text"
           name="firstName"
@@ -96,8 +100,8 @@ const RegisterPage: React.FC = () => {
           onChange={handleChange}
           required
         />
-        
-        {/* Location Preference Dropdown with Placeholder */}
+
+        {/* Dropdowns for selecting preferences */}
         <select name="locationPref" value={formData.locationPref} onChange={handleChange} required>
           <option value="" disabled hidden>
             Select Location Preference
@@ -115,8 +119,7 @@ const RegisterPage: React.FC = () => {
           onChange={handleChange}
           required
         />
-        
-        {/* Workout Type Dropdown with Placeholder */}
+
         <select name="workoutType" value={formData.workoutType} onChange={handleChange} required>
           <option value="" disabled hidden>
             Select Workout Type
@@ -126,7 +129,6 @@ const RegisterPage: React.FC = () => {
           <option value="z">Strength</option>
         </select>
 
-        {/* Timings Dropdown with Placeholder */}
         <select name="timings" value={formData.timings} onChange={handleChange} required>
           <option value="" disabled hidden>
             Select Timings
@@ -136,7 +138,6 @@ const RegisterPage: React.FC = () => {
           <option value="z">Evening (5PM-10PM)</option>
         </select>
 
-        {/* Ideal Rate Range Dropdown with Placeholder */}
         <select name="idealRate" value={formData.idealRate} onChange={handleChange} required>
           <option value="" disabled hidden>
             Select Ideal Rate Range
@@ -146,6 +147,7 @@ const RegisterPage: React.FC = () => {
           <option value="z">Ultra Premium ($30-$40)</option>
         </select>
 
+        {/* Buttons for selecting user type */}
         <div className="button-group">
           <button
             type="button"
@@ -163,6 +165,7 @@ const RegisterPage: React.FC = () => {
           </button>
         </div>
 
+        {/* Submit and navigation link */}
         <button type="submit" className="auth-submit-button">Register</button>
         <p className="auth-text">
           Already have an account? <Link to="/" className="auth-link">Sign In</Link>
