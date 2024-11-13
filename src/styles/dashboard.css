@@ -182,7 +182,7 @@
   z-index: 999; /* Below modal but above main content */
 }
 
-/* Modal for Account Information */
+/* Modal Styling for Account and Contact Card */
 .modal {
   position: fixed;
   top: 50%;
@@ -225,8 +225,9 @@
   font-size: 1rem;
 }
 
-/* Save Button in Modal */
-.save-button {
+/* Save and Close Button Styling in Modal */
+.save-button,
+.modal .close-button {
   background-color: #007bff;
   color: white;
   border: none;
@@ -240,6 +241,14 @@
   transition: background-color 0.3s;
 }
 
-.save-button:hover {
+.save-button:hover,
+.modal .close-button:hover {
   background-color: #0056b3;
+}
+
+/* Trainer Contact Card Content Styling */
+.modal p {
+  margin: 8px 0;
+  font-size: 1rem;
+  color: #555;
 }

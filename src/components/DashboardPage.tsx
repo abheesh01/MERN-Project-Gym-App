@@ -52,7 +52,7 @@ const dummyTrainers: Trainer[] = [
         name: "Jane Smith",
         gym: "Planet Fitness",
         workoutType: "Cut",
-        timings: "Morning (8AM-12PM)",
+        timings: "Morning (7AM-12PM)",
         idealRate: "Premium ($20-$30)",
         email: "janesmith@email.com",
         phoneNumber: "987-654-3210",
@@ -234,6 +234,22 @@ const DashboardPage: React.FC<FormData> = ({ name, gym, workoutType, timings, id
                             </select>
                         </div>
                         <button onClick={handleCloseModal} className="save-button">Save</button>
+                    </div>
+                </div>
+            )}
+
+            {/* Trainer Contact Card Modal */}
+            {selectedTrainer && (
+                <div className="modal-overlay" onClick={handleCloseModal}>
+                    <div className="modal" onClick={(e) => e.stopPropagation()}>
+                        <h2>{selectedTrainer.name}</h2>
+                        <p><strong>Gym:</strong> {selectedTrainer.gym}</p>
+                        <p><strong>Workout Type:</strong> {selectedTrainer.workoutType}</p>
+                        <p><strong>Timings:</strong> {selectedTrainer.timings}</p>
+                        <p><strong>Ideal Rate:</strong> {selectedTrainer.idealRate}</p>
+                        <p><strong>Email:</strong> {selectedTrainer.email}</p>
+                        <p><strong>Phone Number:</strong> {selectedTrainer.phoneNumber}</p>
+                        <button onClick={handleCloseModal} className="save-button">Close</button>
                     </div>
                 </div>
             )}
