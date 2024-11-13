@@ -102,9 +102,9 @@ const RegisterPage: React.FC = () => {
           <option value="" disabled hidden>
             Select Location Preference
           </option>
-          <option value="x">Location X</option>
-          <option value="y">Location Y</option>
-          <option value="z">Location Z</option>
+          <option value="x">UCF RWC</option>
+          <option value="y">Planet Fitness</option>
+          <option value="z">24 Hour Fitness</option>
         </select>
 
         <input
@@ -121,9 +121,9 @@ const RegisterPage: React.FC = () => {
           <option value="" disabled hidden>
             Select Workout Type
           </option>
-          <option value="x">Workout X</option>
-          <option value="y">Workout Y</option>
-          <option value="z">Workout Z</option>
+          <option value="x">Bulk</option>
+          <option value="y">Cut</option>
+          <option value="z">Strength</option>
         </select>
 
         {/* Timings Dropdown with Placeholder */}
@@ -131,9 +131,9 @@ const RegisterPage: React.FC = () => {
           <option value="" disabled hidden>
             Select Timings
           </option>
-          <option value="x">Timing X</option>
-          <option value="y">Timing Y</option>
-          <option value="z">Timing Z</option>
+          <option value="x">Morning (7AM-12PM)</option>
+          <option value="y">Afternoon (12PM-5PM)</option>
+          <option value="z">Evening (5PM-10PM)</option>
         </select>
 
         {/* Ideal Rate Range Dropdown with Placeholder */}
@@ -141,9 +141,9 @@ const RegisterPage: React.FC = () => {
           <option value="" disabled hidden>
             Select Ideal Rate Range
           </option>
-          <option value="x">Rate X</option>
-          <option value="y">Rate Y</option>
-          <option value="z">Rate Z</option>
+          <option value="x">Basic ($10-$20)</option>
+          <option value="y">Premium ($20-$30)</option>
+          <option value="z">Ultra Premium ($30-$40)</option>
         </select>
 
         <div className="button-group">
