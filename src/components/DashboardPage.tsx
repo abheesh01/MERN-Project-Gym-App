@@ -35,6 +35,28 @@ const getRandomQuote = () => {
     return quotes[Math.floor(Math.random() * quotes.length)];
 };
 
+// Function to get a random diet plan
+const getDietPlan = (gym: string, workoutType: string, timings: string, idealRate: string) => {
+    let dietPlan = "";
+  
+    if (gym === "UCF RWC" && workoutType === "Bulk" && timings === "Morning (7AM-12PM)" && idealRate === "Basic ($10-$20)") {
+      dietPlan = "High-protein diet with complex carbs and healthy fats. Recommended daily intake: 2500 calories.";
+    } else if (gym === "UCF RWC" && workoutType === "Bulk" && timings === "Afternoon (12PM-5PM)" && idealRate === "Basic ($10-$20)") {
+      dietPlan = "Balanced diet with moderate protein, complex carbs, and healthy fats. Recommended daily intake: 2200 calories.";
+    } else if (gym === "UCF RWC" && workoutType === "Bulk" && timings === "Evening (5PM-10PM)" && idealRate === "Basic ($10-$20)") {
+      dietPlan = "High-carb diet with moderate protein and healthy fats. Recommended daily intake: 2000 calories.";
+    } else if (gym === "Planet Fitness" && workoutType === "Cut" && timings === "Morning (7AM-12PM)" && idealRate === "Premium ($20-$30)") {
+      dietPlan = "Low-carb diet with high protein and healthy fats. Recommended daily intake: 1800 calories.";
+    } else if (gym === "Planet Fitness" && workoutType === "Cut" && timings === "Afternoon (12PM-5PM)" && idealRate === "Premium ($20-$30)") {
+      dietPlan = "Ketogenic diet with high fat, moderate protein, and low carbs. Recommended daily intake: 1500 calories.";
+    } else if (gym === "24 Hour Fitness" && workoutType === "Strength" && timings === "Morning (7AM-12PM)" && idealRate === "Ultra Premium ($30-$40)") {
+      dietPlan = "High-protein diet with complex carbs and healthy fats. Recommended daily intake: 2800 calories.";
+    } else {
+      dietPlan = "Please consult a nutritionist for a personalized diet plan.";
+    }
+  
+    return dietPlan;
+  };
 // Sample data for trainers
 const dummyTrainers: Trainer[] = [
     {
@@ -78,11 +100,15 @@ const DashboardPage: React.FC<FormData> = ({ name, gym, workoutType, timings, id
         userType,
     });
 
-    // Set a random quote on initial load
+
+    // Get the diet plan
+    const dietPlan = getDietPlan(gym, workoutType, timings, idealRate);
+
+
+    // Set a random quote
     useEffect(() => {
         setQuote(getRandomQuote());
-    }, []);
-
+    })
     // Handlers for search input and filter selection
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value);
     const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -94,7 +120,11 @@ const DashboardPage: React.FC<FormData> = ({ name, gym, workoutType, timings, id
     };
 
     // Handlers to open, close modals and update account information
-    const handleTrainerClick = (trainer: Trainer) => setSelectedTrainer(trainer);
+    const handleTrainerClick = (trainer: Trainer) => {
+        console.log("Selected trainer:", trainer);
+        setSelectedTrainer(trainer);
+    }
+        
     const handleCloseModal = () => {
         setSelectedTrainer(null);
         setShowAccountModal(false);
@@ -184,10 +214,13 @@ const DashboardPage: React.FC<FormData> = ({ name, gym, workoutType, timings, id
                             ))}
                         </ul>
                     </div>
-
+                            
+                    {/* Diet Plan Information */}
                     <div className="right-panel">
-                        <h2>Calendar</h2>
-                        <div className="calendar-placeholder">Calendar Placeholder</div>
+                        <h2>Diet Tips</h2>
+                        <ul>
+                            <li>{dietPlan}</li>
+                        </ul>
                     </div>
                 </div>
             </div>
