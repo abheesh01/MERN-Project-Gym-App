@@ -13,8 +13,8 @@ interface FormData {
     onSignOut: () => void;
 }
 
-// Interface for trainer details
-interface Trainer {
+// Interface for trainee details
+interface Trainee {
     id: number;
     name: string;
     gym: string;
@@ -57,8 +57,8 @@ const getDietPlan = (gym: string, workoutType: string, timings: string, idealRat
   
     return dietPlan;
   };
-// Sample data for trainers
-const dummyTrainers: Trainer[] = [
+// Sample data for trainees
+const dummyTrainees: Trainee[] = [
     {
         id: 1,
         name: "John Doe",
@@ -81,7 +81,7 @@ const dummyTrainers: Trainer[] = [
     },
 ];
 
-const DashboardPage: React.FC<FormData> = ({ name, gym, workoutType, timings, idealRate, userType, onSignOut }) => {
+const TrainerDash: React.FC<FormData> = ({ name, gym, workoutType, timings, idealRate, userType, onSignOut }) => {
     const navigate = useNavigate();
     const [quote, setQuote] = useState("");
     const [searchQuery, setSearchQuery] = useState('');
@@ -89,7 +89,7 @@ const DashboardPage: React.FC<FormData> = ({ name, gym, workoutType, timings, id
     const [filterWorkoutType, setFilterWorkoutType] = useState('');
     const [filterTimings, setFilterTimings] = useState('');
     const [filterIdealRate, setFilterIdealRate] = useState('');
-    const [selectedTrainer, setSelectedTrainer] = useState<Trainer | null>(null);
+    const [selectedTrainee, setSelectedTrainee] = useState<Trainee | null>(null);
     const [showAccountModal, setShowAccountModal] = useState(false);
     const [editableAccount, setEditableAccount] = useState({
         name,
@@ -120,13 +120,13 @@ const DashboardPage: React.FC<FormData> = ({ name, gym, workoutType, timings, id
     };
 
     // Handlers to open, close modals and update account information
-    const handleTrainerClick = (trainer: Trainer) => {
-        console.log("Selected trainer:", trainer);
-        setSelectedTrainer(trainer);
+    const handleTraineeClick = (trainee: Trainee) => {
+        console.log("Selected trainee:", trainee);
+        setSelectedTrainee(trainee);
     }
         
     const handleCloseModal = () => {
-        setSelectedTrainer(null);
+        setSelectedTrainee(null);
         setShowAccountModal(false);
     };
     const handleClearFilters = () => {
@@ -142,13 +142,13 @@ const DashboardPage: React.FC<FormData> = ({ name, gym, workoutType, timings, id
         setEditableAccount((prev) => ({ ...prev, [name]: value }));
     };
 
-    // Filter trainers based on search and filters
-    const filteredTrainers = dummyTrainers.filter(trainer =>
-        trainer.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
-        (filterGym === '' || trainer.gym === filterGym) &&
-        (filterWorkoutType === '' || trainer.workoutType === filterWorkoutType) &&
-        (filterTimings === '' || trainer.timings === filterTimings) &&
-        (filterIdealRate === '' || trainer.idealRate === filterIdealRate)
+    // Filter trainees based on search and filters
+    const filteredTrainees = dummyTrainees.filter(trainee =>
+        trainee.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
+        (filterGym === '' || trainee.gym === filterGym) &&
+        (filterWorkoutType === '' || trainee.workoutType === filterWorkoutType) &&
+        (filterTimings === '' || trainee.timings === filterTimings) &&
+        (filterIdealRate === '' || trainee.idealRate === filterIdealRate)
     );
 
     return (
@@ -167,7 +167,7 @@ const DashboardPage: React.FC<FormData> = ({ name, gym, workoutType, timings, id
                 {/* Filters and Calendar Panels */}
                 <div className="content-layout">
                     <div className="left-panel">
-                        <h2>Filter Trainers</h2>
+                        <h2>Filter Trainees</h2>
                         <input
                             type="text"
                             placeholder="Search by name"
@@ -203,13 +203,13 @@ const DashboardPage: React.FC<FormData> = ({ name, gym, workoutType, timings, id
                         </div>
                         <button className="clear-button" onClick={handleClearFilters}>Clear</button>
                         <ul className="trainer-list">
-                            {filteredTrainers.map(trainer => (
+                            {filteredTrainees.map(trainee => (
                                 <li
-                                    key={trainer.id}
+                                    key={trainee.id}
                                     className="trainer-name"
-                                    onClick={() => handleTrainerClick(trainer)}
+                                    onClick={() => handleTraineeClick(trainee)}
                                 >
-                                    {trainer.name}
+                                    {trainee.name}
                                 </li>
                             ))}
                         </ul>
@@ -271,17 +271,17 @@ const DashboardPage: React.FC<FormData> = ({ name, gym, workoutType, timings, id
                 </div>
             )}
 
-            {/* Trainer Contact Card Modal */}
-            {selectedTrainer && (
+            {/* Trainee Contact Card Modal */}
+            {selectedTrainee && (
                 <div className="modal-overlay" onClick={handleCloseModal}>
                     <div className="modal" onClick={(e) => e.stopPropagation()}>
-                        <h2>{selectedTrainer.name}</h2>
-                        <p><strong>Gym:</strong> {selectedTrainer.gym}</p>
-                        <p><strong>Workout Type:</strong> {selectedTrainer.workoutType}</p>
-                        <p><strong>Timings:</strong> {selectedTrainer.timings}</p>
-                        <p><strong>Ideal Rate:</strong> {selectedTrainer.idealRate}</p>
-                        <p><strong>Email:</strong> {selectedTrainer.email}</p>
-                        <p><strong>Phone Number:</strong> {selectedTrainer.phoneNumber}</p>
+                        <h2>{selectedTrainee.name}</h2>
+                        <p><strong>Gym:</strong> {selectedTrainee.gym}</p>
+                        <p><strong>Workout Type:</strong> {selectedTrainee.workoutType}</p>
+                        <p><strong>Timings:</strong> {selectedTrainee.timings}</p>
+                        <p><strong>Ideal Rate:</strong> {selectedTrainee.idealRate}</p>
+                        <p><strong>Email:</strong> {selectedTrainee.email}</p>
+                        <p><strong>Phone Number:</strong> {selectedTrainee.phoneNumber}</p>
                         <button onClick={handleCloseModal} className="save-button">Close</button>
                     </div>
                 </div>
@@ -290,4 +290,4 @@ const DashboardPage: React.FC<FormData> = ({ name, gym, workoutType, timings, id
     );
 };
 
-export default DashboardPage;
+export default TrainerDash;
