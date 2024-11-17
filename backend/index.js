@@ -10,7 +10,7 @@ const cors = require('cors');
 app.use(cors());
 app.use(express.json());
 
-const MONGO_URI = 'mongodb+srv://MERNUserAccount:Ey3PHCxnHm9KoAJ9z8j@cluster0.gggbe.mongodb.net/myDatabase?retryWrites=true&w=majority';
+const MONGO_URI = 'mongodb+srv://MERNUserAccount:Ey3PHCxnHm9KoAJ9z8j@cluster0.gggbe.mongodb.net/MERNprojectDB?retryWrites=true&w=majority';
 
 // Connect to MongoDB using mongoose
 mongoose
