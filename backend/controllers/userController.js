@@ -14,7 +14,7 @@ const registerUser = async (req, res) => {
         age,
         workoutType,
         timings,
-        idealRate,
+        idealRate, 
         userType, // 'trainee' or 'trainer'
     } = req.body;
 
@@ -57,7 +57,7 @@ const registerUser = async (req, res) => {
                 lastName,
                 hasTrainer: false, // Default value
                 trainerID: null, // No trainer by default
-                idealRate,
+                idealRate, 
                 locationPref,
                 password: hashedPassword,
                 phoneNumber,

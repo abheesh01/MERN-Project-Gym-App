@@ -41,10 +41,30 @@ const RegisterPage: React.FC = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  // Handle form submission
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    console.log('Form Data:', formData);
+  const handleSubmit = async (e: { preventDefault: () => void; }) => {
+    e.preventDefault(); 
+
+    try {
+      const response = await fetch('http://localhost:5000/api/users/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert('Registration successful!');
+        // Redirect or perform another action here
+      } else {
+        alert(`Registration failed: ${data.message}`);
+      }
+    } catch (error) {
+      console.error('Error during registration:', error);
+      alert('An error occurred. Please try again.');
+    }
   };
 
   return (
