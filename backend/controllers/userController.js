@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
-const Trainee = require('../models/traineeModel');
-const Trainer = require('../models/trainerModel');
+const Trainee = require('../models/trainerModel');
+const Trainer = require('../models/traineeModel');
 
 const registerUser = async (req, res) => {
     const {
@@ -78,7 +78,7 @@ const registerUser = async (req, res) => {
                 phoneNumber,
                 timings,
                 userName: username, // Field mapping
-                workoutType,
+                workoutType, 
                 numTrainees: 0, // Default value
                 dateLastLoggedIn: new Date(),
             });

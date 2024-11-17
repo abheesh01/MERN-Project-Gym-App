@@ -43,7 +43,6 @@ const RegisterPage: React.FC = () => {
 
   const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault(); 
-
     try {
       const response = await fetch('http://localhost:5000/api/users/register', {
         method: 'POST',
@@ -126,9 +125,9 @@ const RegisterPage: React.FC = () => {
           <option value="" disabled hidden>
             Select Location Preference
           </option>
-          <option value="x">UCF RWC</option>
-          <option value="y">Planet Fitness</option>
-          <option value="z">24 Hour Fitness</option>
+          <option value="UCF RWC">UCF RWC</option>
+          <option value="Planet Fitness">Planet Fitness</option>
+          <option value="24 Hour Fitness">24 Hour Fitness</option>
         </select>
 
         <input
@@ -144,27 +143,29 @@ const RegisterPage: React.FC = () => {
           <option value="" disabled hidden>
             Select Workout Type
           </option>
-          <option value="x">Bulk</option>
-          <option value="y">Cut</option>
-          <option value="z">Strength</option>
+          <option value="Cardio">Cardio</option>
+          <option value="Calisthenics">Calisthenics</option>
+          <option value="Powerlifting">Powerlifting</option>
+          <option value="Bodybuilding">Bodybuilding</option>
+          <option value="Crossfit">Crossfit</option>
         </select>
 
         <select name="timings" value={formData.timings} onChange={handleChange} required>
           <option value="" disabled hidden>
             Select Timings
           </option>
-          <option value="x">Morning (7AM-12PM)</option>
-          <option value="y">Afternoon (12PM-5PM)</option>
-          <option value="z">Evening (5PM-10PM)</option>
+          <option value="Morning (7AM-12PM)">Morning (7AM-12PM)</option>
+          <option value="Afternoon (12PM-5PM)">Afternoon (12PM-5PM)</option>
+          <option value="Evening (5PM-10PM)">Evening (5PM-10PM)</option>
         </select>
 
         <select name="idealRate" value={formData.idealRate} onChange={handleChange} required>
           <option value="" disabled hidden>
             Select Ideal Rate Range
           </option>
-          <option value="x">Basic ($10-$20)</option>
-          <option value="y">Premium ($20-$30)</option>
-          <option value="z">Ultra Premium ($30-$40)</option>
+          <option value="Basic ($10-$20)">Basic ($10-$20)</option>
+          <option value="Premium ($20-$30)">Premium ($20-$30)</option>
+          <option value="Ultra Premium ($30-$40)">Ultra Premium ($30-$40)</option>
         </select>
 
         {/* Buttons for selecting user type */}
