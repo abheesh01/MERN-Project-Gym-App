@@ -23,7 +23,7 @@ const App: React.FC = () => {
               name="John Doe"
               gym="UCF RWC"
               workoutType="Bulk"
-              timings="Afternoon (12PM-5PM)"
+              timings="Morning (7AM-12PM)"
               idealRate="Basic ($10-$20)"
               userType='trainee'
               onSignOut={handleSignOut}
