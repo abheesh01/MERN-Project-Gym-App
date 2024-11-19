@@ -2,38 +2,31 @@ import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles/signin.css';
 
-// Interface for SignIn props
 interface SignInProps {
-  onSignIn: () => void;
+  onSignIn: (userType: 'trainee' | 'trainer') => void;
 }
 
 const SignInPage: React.FC<SignInProps> = ({ onSignIn }) => {
-  // State for username and password inputs
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [userType, setUserType] = useState<'trainee' | 'trainer'>('trainee'); // Default to 'trainee'
 
   const navigate = useNavigate();
 
-  // Handle sign-in action
-  const handleSignIn = () => {
-    onSignIn(); // Calls the onSignIn function passed as a prop
-  };
-
-  // Handle form submission
-  const handleSubmit = (e: FormEvent) => {
+  const handleSignIn = (e: FormEvent) => {
     e.preventDefault();
-    console.log('Sign In Data:', { username, password });
+    console.log('Sign In Data:', { username, password, userType });
 
-    handleSignIn(); // Trigger the sign-in action
-    navigate('/dashboard'); // Navigate to the dashboard after sign-in
+    // Call onSignIn with the user type
+    onSignIn(userType);
+    navigate(userType === 'trainee' ? '/dashboard' : '/trainer-dashboard');
   };
 
   return (
     <div className="auth-container">
       <h1 className="auth-title">Gym Training App</h1>
       <h1>Sign In</h1>
-      <form className="auth-form" onSubmit={handleSubmit}>
-        {/* Username input */}
+      <form className="auth-form" onSubmit={handleSignIn}>
         <input
           type="text"
           placeholder="Username"
@@ -41,7 +34,6 @@ const SignInPage: React.FC<SignInProps> = ({ onSignIn }) => {
           onChange={(e: ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
           required
         />
-        {/* Password input */}
         <input
           type="password"
           placeholder="Password"
@@ -49,10 +41,27 @@ const SignInPage: React.FC<SignInProps> = ({ onSignIn }) => {
           onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
           required
         />
+        
+        {/* User Type Selection */}
+        <div className="button-group">
+          <button
+            type="button"
+            className={`role-button ${userType === 'trainee' ? 'active' : ''}`}
+            onClick={() => setUserType('trainee')}
+          >
+            Trainee
+          </button>
+          <button
+            type="button"
+            className={`role-button ${userType === 'trainer' ? 'active' : ''}`}
+            onClick={() => setUserType('trainer')}
+          >
+            Trainer
+          </button>
+        </div>
+
         <button type="submit" className="auth-submit-button">Sign In</button>
       </form>
-      
-      {/* Link to register page */}
       <p className="auth-text">
         Don't have an account? <Link to="/register" className="auth-link">Register</Link>
       </p>
