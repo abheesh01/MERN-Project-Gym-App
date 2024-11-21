@@ -105,4 +105,47 @@ const registerUser = async (req, res) => {
     }
 };
 
-module.exports = { registerUser };
+const loginUser = async (req, res) => {
+    const{
+        username,
+        password
+    } = req.body;
+
+    if (
+        !username ||
+        !password
+    ) {
+        return res.status(400).json({message: 'Please provide both username and password.'});
+    }
+    
+    try{
+        const user = await Trainee.findOne({username: username}) || await Trainer.findOne({username: username});
+        if (!user){
+            return res.status(400).json({ message: 'Invalid username or password'});
+        }
+    const validPassword = await bcrypt.compare(password, user.password);
+    
+    if (!validPassword){
+        return res.status(400).json({ message: 'Invalid username or password.'});
+    }
+    
+    res.status(200).json({
+        message: 'Login successful',
+        user: {
+            id: user._id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            userType: user instanceof Trainee ? 'trainee' : 'trainer',
+        },
+    });
+    } catch (err){
+        console.error(err)
+        res.status(500).json({message: 'Server error'});
+    }
+
+};
+
+
+
+module.exports = { registerUser, loginUser };
