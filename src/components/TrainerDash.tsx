@@ -35,27 +35,27 @@ const getRandomQuote = () => {
     return quotes[Math.floor(Math.random() * quotes.length)];
 };
 
-// Function to get a random diet plan
-const getDietPlan = (gym: string, workoutType: string, timings: string, idealRate: string) => {
-    let dietPlan = "";
+// Function to get a random workout tip
+const getWorkoutTip = (gym: string, workoutType: string, timings: string, idealRate: string) => {
+    let workoutTip = "";
   
     if (gym === "UCF RWC" && workoutType === "Bulk" && timings === "Morning (7AM-12PM)" && idealRate === "Basic ($10-$20)") {
-      dietPlan = "High-protein diet with complex carbs and healthy fats. Recommended daily intake: 2500 calories.";
+      workoutTip = "Focus on compound exercises like squats, deadlifts, and bench press to build muscle mass.";
     } else if (gym === "UCF RWC" && workoutType === "Bulk" && timings === "Afternoon (12PM-5PM)" && idealRate === "Basic ($10-$20)") {
-      dietPlan = "Balanced diet with moderate protein, complex carbs, and healthy fats. Recommended daily intake: 2200 calories.";
+      workoutTip = "Incorporate progressive overload by increasing weight or reps to continue making gains.";
     } else if (gym === "UCF RWC" && workoutType === "Bulk" && timings === "Evening (5PM-10PM)" && idealRate === "Basic ($10-$20)") {
-      dietPlan = "High-carb diet with moderate protein and healthy fats. Recommended daily intake: 2000 calories.";
+      workoutTip = "Make sure to warm up properly before your workout and cool down afterwards to prevent injury.";
     } else if (gym === "Planet Fitness" && workoutType === "Cut" && timings === "Morning (7AM-12PM)" && idealRate === "Premium ($20-$30)") {
-      dietPlan = "Low-carb diet with high protein and healthy fats. Recommended daily intake: 1800 calories.";
+      workoutTip = "Focus on high-intensity interval training (HIIT) to boost your metabolism and burn fat.";
     } else if (gym === "Planet Fitness" && workoutType === "Cut" && timings === "Afternoon (12PM-5PM)" && idealRate === "Premium ($20-$30)") {
-      dietPlan = "Ketogenic diet with high fat, moderate protein, and low carbs. Recommended daily intake: 1500 calories.";
+      workoutTip = "Incorporate strength training exercises to build lean muscle and increase metabolism.";
     } else if (gym === "24 Hour Fitness" && workoutType === "Strength" && timings === "Morning (7AM-12PM)" && idealRate === "Ultra Premium ($30-$40)") {
-      dietPlan = "High-protein diet with complex carbs and healthy fats. Recommended daily intake: 2800 calories.";
+      workoutTip = "Focus on functional exercises like squats, lunges, and step-ups to improve overall strength and athleticism.";
     } else {
-      dietPlan = "Please consult a nutritionist for a personalized diet plan.";
+      workoutTip = "Please consult a personal trainer for a customized workout plan.";
     }
   
-    return dietPlan;
+    return workoutTip;
   };
 // Sample data for trainees
 const dummyTrainees: Trainee[] = [
@@ -102,7 +102,7 @@ const TrainerDash: React.FC<FormData> = ({ name, gym, workoutType, timings, idea
 
 
     // Get the diet plan
-    const dietPlan = getDietPlan(gym, workoutType, timings, idealRate);
+    const workoutTip = getWorkoutTip(gym, workoutType, timings, idealRate);
 
 
     // Set a random quote
@@ -217,9 +217,9 @@ const TrainerDash: React.FC<FormData> = ({ name, gym, workoutType, timings, idea
                             
                     {/* Diet Plan Information */}
                     <div className="right-panel">
-                        <h2>Diet Tips</h2>
+                        <h2>Workout Tips</h2>
                         <ul>
-                            <li>{dietPlan}</li>
+                            <li>{workoutTip}</li>
                         </ul>
                     </div>
                 </div>
