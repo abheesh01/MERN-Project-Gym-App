@@ -195,9 +195,11 @@ const TraineeDash: React.FC<FormData> = ({ name, gym, workoutType, timings, idea
                             </select>
                             <select name="workoutType" value={filterWorkoutType} onChange={handleFilterChange} className="filter-select">
                                 <option value="">Select Workout Type</option>
-                                <option value="Bulk">Bulk</option>
-                                <option value="Cut">Cut</option>
-                                <option value="Strength">Strength</option>
+                                <option value="Cardio">Cardio</option>
+                                <option value="Calisthenics">Calisthenics</option>
+                                <option value="Powerlifting">Powerlifting</option>
+                                <option value="Bodybuilding">Bodybuilding</option>
+                                <option value="Crossfit">Crossfit</option>
                             </select>
                             <select name="timings" value={filterTimings} onChange={handleFilterChange} className="filter-select">
                                 <option value="">Select Timings</option>
