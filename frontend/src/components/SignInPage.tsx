@@ -14,18 +14,28 @@ const SignInPage: React.FC<SignInProps> = ({ onSignIn }) => {
 
   const navigate = useNavigate();
 
-  // Handle sign-in action
-  const handleSignIn = () => {
-    onSignIn(); // Calls the onSignIn function passed as a prop
-  };
-
-  // Handle form submission
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Sign In Data:', { username, password });
 
-    handleSignIn(); // Trigger the sign-in action
-    navigate('/dashboard'); // Navigate to the dashboard after sign-in
+    try {
+      const response = await fetch('http://localhost:5000/api/users/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      if (response.ok) {
+        console.log('Sign-in successful');
+        onSignIn();
+        navigate('/dashboard'); 
+      } else {
+        console.error('Sign-in failed:', await response.json());
+      }
+    } catch (error) {
+      console.error('Error during sign-in:', error);
+    }
   };
 
   return (

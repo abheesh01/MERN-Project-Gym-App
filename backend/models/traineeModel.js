@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const traineeModel = new mongoose.Schema({
+const traineeSchema = new mongoose.Schema({
   age: { type: Number, required: true },
   email: { type: String, required: true },
   firstName: { type: String, required: true },
@@ -18,4 +18,5 @@ const traineeModel = new mongoose.Schema({
   dateLastLoggedIn: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model('Trainee', traineeModel);
+const Trainee = mongoose.model('Trainee', traineeSchema);
+module.exports = Trainee;

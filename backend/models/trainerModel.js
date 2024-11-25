@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const trainerModel = new mongoose.Schema({
+const trainerSchema = new mongoose.Schema({
   age: { type: Number, required: true },
   email: { type: String, required: true },
   firstName: { type: String, required: true },
@@ -17,4 +17,5 @@ const trainerModel = new mongoose.Schema({
   dateLastLoggedIn: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model('Trainer', trainerModel);
+const Trainer = mongoose.model('Trainer', trainerSchema);
+module.exports = Trainer;

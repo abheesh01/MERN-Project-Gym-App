@@ -38,10 +38,10 @@ const registerUser = async (req, res) => {
 
     try {
         // Check if the user already exists in both collections
-        const existingTrainee = await Trainee.findOne({ email });
-        const existingTrainer = await Trainer.findOne({ email });
+        const existingTrainee = await Trainee.findOne({ username });
+        const existingTrainer = await Trainer.findOne({ username });
         if (existingTrainee || existingTrainer) {
-            return res.status(400).json({ message: 'User with this email already exists' });
+            return res.status(400).json({ message: 'Username already exists' });
         }
 
         // Hash the password
@@ -106,46 +106,33 @@ const registerUser = async (req, res) => {
 };
 
 const loginUser = async (req, res) => {
-    const{
-        username,
-        password
-    } = req.body;
+    const { username, password } = req.body;
 
-    if (
-        !username ||
-        !password
-    ) {
-        return res.status(400).json({message: 'Please provide both username and password.'});
+    // Validate username and password
+    if (!username || !password) {
+        return res.status(400).json({ message: 'Please provide both username and password.' });
     }
-    
-    try{
-        const user = await Trainee.findOne({username: username}) || await Trainer.findOne({username: username});
-        if (!user){
-            return res.status(400).json({ message: 'Invalid username or password'});
+
+    try {
+        // Check if user exists in either Trainee or Trainer models
+        const user = await Trainee.findOne({userName: username }) || await Trainer.findOne({userName: username });
+
+        if (!user) {
+            return res.status(400).json({ message: 'Invalid username' });
         }
-    const validPassword = await bcrypt.compare(password, user.password);
-    
-    if (!validPassword){
-        return res.status(400).json({ message: 'Invalid username or password.'});
-    }
-    
-    res.status(200).json({
-        message: 'Login successful',
-        user: {
-            id: user._id,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email,
-            userType: user instanceof Trainee ? 'trainee' : 'trainer',
-        },
-    });
-    } catch (err){
-        console.error(err)
-        res.status(500).json({message: 'Server error'});
-    }
 
+        // Compare password 
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
+            return res.status(400).json({ message: 'Invalid password' });
+        }
+
+        // If everything is valid, respond with success message
+        res.status(200).json({ message: 'Login successful', user });
+    } catch (error) {
+        console.error('Error logging in:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
 };
-
-
 
 module.exports = { registerUser, loginUser };
