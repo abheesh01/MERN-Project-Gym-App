@@ -13,7 +13,7 @@ interface FormData {
     onSignOut: () => void;
 }
 
-// Interface for trainee details
+// Interface for trainer details
 interface Trainee {
     id: number;
     name: string;
@@ -24,6 +24,39 @@ interface Trainee {
     email: string;
     phoneNumber: string;
 }
+
+const fetchTrainees = async (setTrainees: { (value: React.SetStateAction<Trainee[]>): void; (arg0: Trainee[]): void; }) => {
+    try {
+        const response = await fetch('http://localhost:5000/api/dash/trainees', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        });
+
+        if (response.ok) {
+        const data = await response.json();
+
+        // Map the trainers to match the Trainer interface
+        const formattedTrainees: Trainee[] = data.trainees.map((trainee: any) => ({
+            id: trainee._id, // Map `_id` to `id`
+            name: `${trainee.firstName} ${trainee.lastName}`,
+            gym: trainee.locationPref,
+            workoutType: trainee.workoutType,
+            timings: trainee.timings,
+            idealRate: trainee.idealRate,
+            email: trainee.email,
+            phoneNumber: trainee.phoneNumber,
+        }));
+
+        setTrainees(formattedTrainees); // Update state with formatted trainers
+        } else {
+        console.error('Error fetching trainees:', await response.json());
+        }
+    } catch (error) {
+        console.error('Error fetching trainees:', error);
+    }
+};
 
 // Function to get a random motivational quote
 const getRandomQuote = () => {
@@ -57,29 +90,6 @@ const getWorkoutTip = (gym: string, workoutType: string, timings: string, idealR
   
     return workoutTip;
   };
-// Sample data for trainees
-const dummyTrainees: Trainee[] = [
-    {
-        id: 1,
-        name: "John Doe",
-        gym: "UCF RWC",
-        workoutType: "Bulk",
-        timings: "Afternoon (12PM-5PM)",
-        idealRate: "Basic ($10-$20)",
-        email: "johndoe@email.com",
-        phoneNumber: "123-456-7890",
-    },
-    {
-        id: 2,
-        name: "Jane Smith",
-        gym: "Planet Fitness",
-        workoutType: "Cut",
-        timings: "Morning (7AM-12PM)",
-        idealRate: "Premium ($20-$30)",
-        email: "janesmith@email.com",
-        phoneNumber: "987-654-3210",
-    },
-];
 
 const TrainerDash: React.FC<FormData> = ({ name, gym, workoutType, timings, idealRate, userType, onSignOut }) => {
     const navigate = useNavigate();
@@ -103,12 +113,13 @@ const TrainerDash: React.FC<FormData> = ({ name, gym, workoutType, timings, idea
 
     // Get the diet plan
     const workoutTip = getWorkoutTip(gym, workoutType, timings, idealRate);
+    const [trainees, setTrainees] = useState<Trainee[]>([]);
 
-
-    // Set a random quote
     useEffect(() => {
         setQuote(getRandomQuote());
-    })
+        fetchTrainees(setTrainees);
+    }, []);
+
     // Handlers for search input and filter selection
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value);
     const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -143,7 +154,7 @@ const TrainerDash: React.FC<FormData> = ({ name, gym, workoutType, timings, idea
     };
 
     // Filter trainees based on search and filters
-    const filteredTrainees = dummyTrainees.filter(trainee =>
+    const filteredTrainees = trainees.filter(trainee =>
         trainee.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
         (filterGym === '' || trainee.gym === filterGym) &&
         (filterWorkoutType === '' || trainee.workoutType === filterWorkoutType) &&

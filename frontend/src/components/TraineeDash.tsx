@@ -91,30 +91,6 @@ const getDietPlan = (gym: string, workoutType: string, timings: string, idealRat
     return dietPlan;
   };
 
-// Sample data for trainers
-const dummyTrainers: Trainer[] = [
-    {
-        id: 1,
-        name: "John Doe",
-        gym: "UCF RWC",
-        workoutType: "Bulk",
-        timings: "Afternoon (12PM-5PM)",
-        idealRate: "Basic ($10-$20)",
-        email: "johndoe@email.com",
-        phoneNumber: "123-456-7890",
-    },
-    {
-        id: 2,
-        name: "Jane Smith",
-        gym: "Planet Fitness",
-        workoutType: "Cut",
-        timings: "Morning (7AM-12PM)",
-        idealRate: "Premium ($20-$30)",
-        email: "janesmith@email.com",
-        phoneNumber: "987-654-3210",
-    },
-];
-
 const TraineeDash: React.FC<FormData> = ({ name, gym, workoutType, timings, idealRate, userType, onSignOut }) => {
     const [quote, setQuote] = useState("");
     const [searchQuery, setSearchQuery] = useState('');
@@ -133,7 +109,7 @@ const TraineeDash: React.FC<FormData> = ({ name, gym, workoutType, timings, idea
         userType,
     });
 
-    const [trainers, setTrainers] = useState<Trainer[]>([]); // Explicitly typed as an array of Trainer
+    const [trainers, setTrainers] = useState<Trainer[]>([]); 
 
     // Get the diet plan
     const dietPlan = getDietPlan(gym, workoutType, timings, idealRate);
