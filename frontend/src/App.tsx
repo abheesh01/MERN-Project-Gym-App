@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, NavLink, Navigate  } from 'react-router-dom';
 import RegisterPage from './components/RegisterPage.tsx';
 import SignInPage from './components/SignInPage.tsx';
@@ -7,8 +7,33 @@ import DashboardPage from './components/DashboardPage.tsx';
 const App: React.FC = () => {
   const [signedIn, setSignedIn] = React.useState(false);
 
-  const handleSignIn = () => setSignedIn(true);
-  const handleSignOut = () => setSignedIn(false);
+  const [user, setUser] = useState<{
+    name: string;
+    gym: string;
+    workoutType: string;
+    timings: string;
+    idealRate: string;
+    userType: 'trainee' | 'trainer';
+  } | null>(null);
+
+  const handleSignIn = (userInfo: {
+    name: string;
+    gym: string;
+    workoutType: string;
+    timings: string;
+    idealRate: string;
+    userType: 'trainee' | 'trainer';
+  }) => {
+    setSignedIn(true);
+    console.log("Sign in is true")
+    setUser(userInfo);
+    console.log("User info set")
+  };
+
+  const handleSignOut = () => {
+    setSignedIn(false);
+    setUser(null);
+  };
 
   return (
     <Router>
@@ -18,14 +43,14 @@ const App: React.FC = () => {
 
         <Route 
           path="/dashboard"
-          element={signedIn ? (
+          element={signedIn && user ? (
             <DashboardPage
-              name="John Doe"
-              gym="UCF RWC"
-              workoutType="Bulk"
-              timings="Afternoon (12PM-5PM)"
-              idealRate="Basic ($10-$20)"
-              userType='trainee'
+              name={user.name}
+              gym={user.gym}
+              workoutType={user.workoutType}
+              timings={user.timings}
+              idealRate={user.idealRate}
+              userType={user.userType}
               onSignOut={handleSignOut}
             />
           ) : (

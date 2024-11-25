@@ -2,12 +2,18 @@ import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles/signin.css';
 
-// Interface for SignIn props
 interface SignInProps {
-  onSignIn: () => void;
+  onSignIn: (userInfo: {
+    name: string;
+    gym: string;
+    workoutType: string;
+    timings: string;
+    idealRate: string;
+    userType: 'trainee' | 'trainer';
+  }) => void;
 }
 
-const SignInPage: React.FC<SignInProps> = ({ onSignIn }) => {
+const SignInPage: React.FC<{ onSignIn: (userInfo: any) => void }> = ({ onSignIn }) => {
   // State for username and password inputs
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -27,9 +33,19 @@ const SignInPage: React.FC<SignInProps> = ({ onSignIn }) => {
       });
 
       if (response.ok) {
-        console.log('Sign-in successful');
-        onSignIn();
-        navigate('/dashboard'); 
+        const userInfo = await response.json(); 
+        console.log('Sign-in successful:', userInfo);
+
+        onSignIn({
+          name: userInfo.user.firstName + ' ' + userInfo.user.lastName, // Combine first and last names
+          gym: userInfo.user.locationPref, // Use locationPref for gym
+          workoutType: userInfo.user.workoutType, 
+          timings: userInfo.user.timings,
+          idealRate: userInfo.user.idealRate, 
+          userType: userInfo.user.hasTrainer ? 'trainer' : 'trainee', // Determine userType based on hasTrainer
+        });        
+
+        navigate('/dashboard');
       } else {
         console.error('Sign-in failed:', await response.json());
       }
