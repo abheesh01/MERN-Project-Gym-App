@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const Trainer = require('../models/trainerModel');
 const Trainee = require('../models/traineeModel');
+const jwt = require('jsonwebtoken');
 
 const registerUser = async (req, res) => {
     const {
@@ -128,7 +129,7 @@ const loginUser = async (req, res) => {
         }
 
         // If everything is valid, respond with success message
-        res.status(200).json({ message: 'Login successful', user });
+        res.status(200).json({ message: 'Login successful', user});
     } catch (error) {
         console.error('Error logging in:', error);
         res.status(500).json({ message: 'Internal server error' });

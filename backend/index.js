@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/userRoutes');
+const dashRoutes = require('./routes/dashRoutes');
 require('dotenv').config();
 
 const app = express();
@@ -23,6 +24,7 @@ mongoose
 
 // Routes
 app.use('/api/users', userRoutes);
+app.use('/api/dash', dashRoutes);
 
 // Start the server
 const PORT = 5000;

@@ -25,6 +25,39 @@ interface Trainer {
     phoneNumber: string;
 }
 
+const fetchTrainers = async (setTrainers: { (value: React.SetStateAction<Trainer[]>): void; (arg0: Trainer[]): void; }) => {
+    try {
+        const response = await fetch('http://localhost:5000/api/dash/trainers', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        });
+
+        if (response.ok) {
+        const data = await response.json();
+
+        // Map the trainers to match the Trainer interface
+        const formattedTrainers: Trainer[] = data.trainers.map((trainer: any) => ({
+            id: trainer._id, // Map `_id` to `id`
+            name: `${trainer.firstName} ${trainer.lastName}`,
+            gym: trainer.locationPref,
+            workoutType: trainer.workoutType,
+            timings: trainer.timings,
+            idealRate: trainer.idealRate,
+            email: trainer.email,
+            phoneNumber: trainer.phoneNumber,
+        }));
+
+        setTrainers(formattedTrainers); // Update state with formatted trainers
+        } else {
+        console.error('Error fetching trainers:', await response.json());
+        }
+    } catch (error) {
+        console.error('Error fetching trainers:', error);
+    }
+};
+
 // Function to get a random motivational quote
 const getRandomQuote = () => {
     const quotes = [
@@ -57,6 +90,7 @@ const getDietPlan = (gym: string, workoutType: string, timings: string, idealRat
   
     return dietPlan;
   };
+
 // Sample data for trainers
 const dummyTrainers: Trainer[] = [
     {
@@ -82,7 +116,6 @@ const dummyTrainers: Trainer[] = [
 ];
 
 const TraineeDash: React.FC<FormData> = ({ name, gym, workoutType, timings, idealRate, userType, onSignOut }) => {
-    const navigate = useNavigate();
     const [quote, setQuote] = useState("");
     const [searchQuery, setSearchQuery] = useState('');
     const [filterGym, setFilterGym] = useState('');
@@ -100,15 +133,17 @@ const TraineeDash: React.FC<FormData> = ({ name, gym, workoutType, timings, idea
         userType,
     });
 
+    const [trainers, setTrainers] = useState<Trainer[]>([]); // Explicitly typed as an array of Trainer
 
     // Get the diet plan
     const dietPlan = getDietPlan(gym, workoutType, timings, idealRate);
 
-
-    // Set a random quote
+    // Set a random quote and get trainers
     useEffect(() => {
         setQuote(getRandomQuote());
-    })
+        fetchTrainers(setTrainers);
+    }, []);
+
     // Handlers for search input and filter selection
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value);
     const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -143,7 +178,7 @@ const TraineeDash: React.FC<FormData> = ({ name, gym, workoutType, timings, idea
     };
 
     // Filter trainers based on search and filters
-    const filteredTrainers = dummyTrainers.filter(trainer =>
+    const filteredTrainers = trainers.filter(trainer =>
         trainer.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
         (filterGym === '' || trainer.gym === filterGym) &&
         (filterWorkoutType === '' || trainer.workoutType === filterWorkoutType) &&
