@@ -42,7 +42,7 @@ const SignInPage: React.FC<{ onSignIn: (userInfo: any) => void }> = ({ onSignIn 
           workoutType: userInfo.user.workoutType, 
           timings: userInfo.user.timings,
           idealRate: userInfo.user.idealRate, 
-          userType: userInfo.user.hasTrainer ? 'trainer' : 'trainee', // Determine userType based on hasTrainer
+          userType: userInfo.user.hasTrainer === undefined ? 'trainer' : 'trainee', // Check if user is a trainer or trainee
         });        
 
         navigate('/dashboard');

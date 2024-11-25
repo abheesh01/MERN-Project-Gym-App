@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Routes, NavLink, Navigate  } from 'reac
 import RegisterPage from './components/RegisterPage.tsx';
 import SignInPage from './components/SignInPage.tsx';
 import DashboardPage from './components/DashboardPage.tsx';
+import TraineeDash from './components/TraineeDash.tsx';
+import TrainerDash from './components/TrainerDash.tsx';
 
 const App: React.FC = () => {
   const [signedIn, setSignedIn] = React.useState(false);
@@ -41,21 +43,41 @@ const App: React.FC = () => {
         <Route path="/" element={<SignInPage onSignIn={handleSignIn} />} />  {/* Set SignInPage as the default page */}
         <Route path="/register" element={<RegisterPage />} />
 
-        <Route 
+        <Route
           path="/dashboard"
-          element={signedIn && user ? (
-            <DashboardPage
-              name={user.name}
-              gym={user.gym}
-              workoutType={user.workoutType}
-              timings={user.timings}
-              idealRate={user.idealRate}
-              userType={user.userType}
-              onSignOut={handleSignOut}
-            />
-          ) : (
-            <Navigate to="/" replace />
-          )}
+          element={
+            signedIn && user ? (
+              user.userType === 'trainee' ? (
+              <>
+                {console.log("going trainee dash")}
+                <TraineeDash
+                  name={user.name}
+                  gym={user.gym}
+                  workoutType={user.workoutType}
+                  timings={user.timings}
+                  idealRate={user.idealRate}
+                  userType={user.userType}
+                  onSignOut={handleSignOut}
+                />
+              </>
+              ) : (
+              <>
+                {console.log("going trainer dash")}
+                <TrainerDash
+                  name={user.name}
+                  gym={user.gym}
+                  workoutType={user.workoutType}
+                  timings={user.timings}
+                  idealRate={user.idealRate}
+                  userType={user.userType}
+                  onSignOut={handleSignOut}
+                />
+              </>
+              )
+            ) : (
+              <Navigate to="/" replace />
+            )
+          }
         />
       </Routes>
     </Router>
