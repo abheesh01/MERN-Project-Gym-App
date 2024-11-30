@@ -58,6 +58,28 @@ const fetchTrainers = async (setTrainers: { (value: React.SetStateAction<Trainer
     }
 };
 
+//update
+const updateUser = async (userData: Omit<FormData, 'onSignOut'>) => {
+    try {
+        const response = await fetch('http://localhost:5000/api/dash/updateUser', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(userData),
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            console.log('User updated successfully:', data);
+        } else {
+            console.error('Error updating user:', await response.json());
+        }
+    } catch (error) {
+        console.error('Error updating user:', error);
+    }
+};
+
 // Function to get a random motivational quote
 const getRandomQuote = () => {
     const quotes = [
@@ -140,6 +162,14 @@ const TraineeDash: React.FC<FormData> = ({ name, gym, workoutType, timings, idea
         setSelectedTrainer(null);
         setShowAccountModal(false);
     };
+
+    // update
+    const handleCloseModalAndSave = () => {
+        setSelectedTrainer(null);
+        setShowAccountModal(false);
+        updateUser(editableAccount);
+    };
+
     const handleClearFilters = () => {
         setSearchQuery('');
         setFilterGym('');
@@ -237,7 +267,7 @@ const TraineeDash: React.FC<FormData> = ({ name, gym, workoutType, timings, idea
                     </div>
                 </div>
             </div>
-
+            { /* update */}
             {/* Account Information Modal */}
             {showAccountModal && (
                 <div className="modal-overlay" onClick={handleCloseModal}>
@@ -258,9 +288,11 @@ const TraineeDash: React.FC<FormData> = ({ name, gym, workoutType, timings, idea
                         <div className="form-group">
                             <label>Workout Type</label>
                             <select name="workoutType" value={editableAccount.workoutType} onChange={handleAccountChange}>
-                                <option value="Bulk">Bulk</option>
-                                <option value="Cut">Cut</option>
-                                <option value="Strength">Strength</option>
+                                <option value="Cardio">Cardio</option>
+                                <option value="Calisthenics">Calisthenics</option>
+                                <option value="Powerlifting">Powerlifting</option>
+                                <option value="Bodybuilding">Bodybuilding</option>
+                                <option value="Crossfit">Crossfit</option>
                             </select>
                         </div>
                         <div className="form-group">
@@ -279,7 +311,7 @@ const TraineeDash: React.FC<FormData> = ({ name, gym, workoutType, timings, idea
                                 <option value="Ultra Premium ($30-$40)">Ultra Premium ($30-$40)</option>
                             </select>
                         </div>
-                        <button onClick={handleCloseModal} className="save-button">Save</button>
+                        <button onClick={handleCloseModalAndSave} className="save-button">Save</button>
                     </div>
                 </div>
             )}
