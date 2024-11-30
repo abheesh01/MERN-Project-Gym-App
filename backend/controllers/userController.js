@@ -137,7 +137,7 @@ const loginUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-    const { username, newName, newGym, newWorkoutType, newTimings, newIdealRate } = req.body;
+    const { newName, newGym, newWorkoutType, newTimings, newIdealRate } = req.body;
 
     // Validate input
     if (!username || !newName || !newGym || !newWorkoutType || !newTimings || !newIdealRate) {
@@ -145,12 +145,6 @@ const updateUser = async (req, res) => {
     }
 
     try {
-        // Check if the user exists
-        const user = await Trainee.findOne({ userName: username }) || await Trainer.findOne({ userName: username });
-        if (!user) {
-            return res.status(400).json({ message: 'User not found' });
-        }
-
         // Update the user
         const [newFirstName, newLastName] = newName.split(' ');
         user.firstName = newFirstName;
