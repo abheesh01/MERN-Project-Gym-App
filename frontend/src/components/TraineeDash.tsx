@@ -60,20 +60,29 @@ const fetchTrainers = async (setTrainers: { (value: React.SetStateAction<Trainer
 
 //update
 const updateUser = async (userData: Omit<FormData, 'onSignOut'>) => {
+    const data = {
+        newName: userData.name,
+        newGym: userData.gym,
+        newWorkoutType: userData.workoutType,
+        newTimings: userData.timings,
+        newIdealRate: userData.idealRate,
+    };
+
     try {
         const response = await fetch('http://localhost:5000/api/dash/updateUser', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(userData),
+            body: JSON.stringify(data), 
         });
 
         if (response.ok) {
             const data = await response.json();
             console.log('User updated successfully:', data);
         } else {
-            console.error('Error updating user:', await response.json());
+            const error = await response.json();
+            console.error('Error updating user:', error);
         }
     } catch (error) {
         console.error('Error updating user:', error);

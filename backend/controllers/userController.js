@@ -140,7 +140,7 @@ const updateUser = async (req, res) => {
     const { newName, newGym, newWorkoutType, newTimings, newIdealRate } = req.body;
 
     // Validate input
-    if (!username || !newName || !newGym || !newWorkoutType || !newTimings || !newIdealRate) {
+    if (!newName || !newGym || !newWorkoutType || !newTimings || !newIdealRate) {
         return res.status(400).json({ message: 'Please provide all required fields' });
     }
 
