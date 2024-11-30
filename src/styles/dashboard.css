@@ -225,9 +225,10 @@
   font-size: 1rem;
 }
 
-/* Save and Close Button Styling in Modal */
+/* Save, Close, and Delete Button Styling in Modal */
 .save-button,
-.modal .close-button {
+.modal .close-button,
+.modal .delete-button {
   background-color: #007bff;
   color: white;
   border: none;
@@ -242,8 +243,18 @@
 }
 
 .save-button:hover,
-.modal .close-button:hover {
+.modal .close-button:hover,
+.modal .delete-button:hover {
   background-color: #0056b3;
+}
+
+/* Delete Button Specific Styling */
+.modal .delete-button {
+  background-color: #dc3545; /* Red for delete action */
+}
+
+.modal .delete-button:hover {
+  background-color: #a71d2a; /* Darker red on hover */
 }
 
 /* Trainer Contact Card Content Styling */
