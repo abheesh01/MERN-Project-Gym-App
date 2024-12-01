@@ -89,6 +89,31 @@ const updateUser = async (userData: Omit<FormData, 'onSignOut'>) => {
     }
 };
 
+const deleteUser = async (userData: Omit<FormData, 'onSignOut'>) => {
+    const data = {
+        name: userData.name,
+    };
+    // console.log("name: ", data);
+    try{
+        const response = await fetch('http://localhost:5001/api/users/delete', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+        if (response.ok){
+            const data = await response.json();
+            console.log('User deleted successfully:', data);
+        } else {
+            const error = await response.json();
+            console.error('Error deleting user:', error);
+        }
+    } catch(error){
+        console.error('Error deleting user:', error);
+    }
+};
+
 // Function to get a random motivational quote
 const getRandomQuote = () => {
     const quotes = [
@@ -195,7 +220,8 @@ const TraineeDash: React.FC<FormData> = ({ name, gym, workoutType, timings, idea
 
     const deleteAccount = () => {
         console.log("Account Deleted:", editableAccount);
-        onSignOut();
+        deleteUser(editableAccount);
+        // onSignOut();
         navigate('/');
     };
 
