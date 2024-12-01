@@ -123,6 +123,7 @@ const getDietPlan = (gym: string, workoutType: string, timings: string, idealRat
   };
 
 const TraineeDash: React.FC<FormData> = ({ name, gym, workoutType, timings, idealRate, userType, onSignOut }) => {
+    const navigate = useNavigate();
     const [quote, setQuote] = useState("");
     const [searchQuery, setSearchQuery] = useState('');
     const [filterGym, setFilterGym] = useState('');
@@ -190,6 +191,12 @@ const TraineeDash: React.FC<FormData> = ({ name, gym, workoutType, timings, idea
     const handleAccountChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setEditableAccount((prev) => ({ ...prev, [name]: value }));
+    };
+
+    const deleteAccount = () => {
+        console.log("Account Deleted:", editableAccount);
+        onSignOut();
+        navigate('/');
     };
 
     // Filter trainers based on search and filters
@@ -321,6 +328,7 @@ const TraineeDash: React.FC<FormData> = ({ name, gym, workoutType, timings, idea
                             </select>
                         </div>
                         <button onClick={handleCloseModalAndSave} className="save-button">Save</button>
+                        <button onClick={deleteAccount} className="delete-button">Delete Account</button>
                     </div>
                 </div>
             )}

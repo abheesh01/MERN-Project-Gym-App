@@ -154,6 +154,12 @@ const TrainerDash: React.FC<FormData> = ({ name, gym, workoutType, timings, idea
         setEditableAccount((prev) => ({ ...prev, [name]: value }));
     };
 
+    const deleteAccount = () => {
+        console.log("Account Deleted:", editableAccount);
+        onSignOut();
+        navigate('/');
+    }
+
     // Filter trainees based on search and filters
     const filteredTrainees = trainees.filter(trainee =>
         trainee.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
@@ -281,6 +287,7 @@ const TrainerDash: React.FC<FormData> = ({ name, gym, workoutType, timings, idea
                             </select>
                         </div>
                         <button onClick={handleCloseModal} className="save-button">Save</button>
+                        <button onClick={deleteAccount} className="delete-button">Delete Account</button>
                     </div>
                 </div>
             )}
