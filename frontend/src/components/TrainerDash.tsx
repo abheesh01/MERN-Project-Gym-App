@@ -246,7 +246,7 @@ const TrainerDash: React.FC<FormData> = ({ name, gym, workoutType, timings, idea
                         <h2>Account Information</h2>
                         <div className="form-group">
                             <label>Name</label>
-                            <input type="text" name="name" value={editableAccount.name} onChange={handleAccountChange} />
+                            <input type="text" name="name" value={editableAccount.name} onChange={handleAccountChange} readOnly={true} />
                         </div>
                         <div className="form-group">
                             <label>Gym</label>
