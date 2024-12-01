@@ -137,19 +137,22 @@ const loginUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-    const { newName, newGym, newWorkoutType, newTimings, newIdealRate } = req.body;
+    const {name, newGym, newWorkoutType, newTimings, newIdealRate } = req.body;
 
     // Validate input
-    if (!newName || !newGym || !newWorkoutType || !newTimings || !newIdealRate) {
+    if (!newGym || !newWorkoutType || !newTimings || !newIdealRate) {
         return res.status(400).json({ message: 'Please provide all required fields' });
     }
 
     try {
         // Update the user
-        const [newFirstName, newLastName] = newName.split(' ');
-        user.firstName = newFirstName;
-        user.lastName = newLastName;
-        user.gym = newGym;
+        const searchByName = name.split(" ")[0];
+        const user = await Trainee.findOne({firstName: searchByName}) || await Trainer.findOne({firstName: searchByName});
+        console.log('user: ', user);
+        // const [newFirstName, newLastName] = newName.split(' ');
+        // user.firstName = newFirstName;
+        // user.lastName = newLastName;
+        user.locationPref = newGym;
         user.workoutType = newWorkoutType;
         user.timings = newTimings;
         user.idealRate = newIdealRate;

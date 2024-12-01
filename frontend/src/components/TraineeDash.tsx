@@ -27,7 +27,7 @@ interface Trainer {
 
 const fetchTrainers = async (setTrainers: { (value: React.SetStateAction<Trainer[]>): void; (arg0: Trainer[]): void; }) => {
     try {
-        const response = await fetch('http://localhost:5000/api/dash/trainers', {
+        const response = await fetch('http://localhost:5001/api/dash/trainers', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -61,7 +61,7 @@ const fetchTrainers = async (setTrainers: { (value: React.SetStateAction<Trainer
 //update
 const updateUser = async (userData: Omit<FormData, 'onSignOut'>) => {
     const data = {
-        newName: userData.name,
+        name: userData.name,
         newGym: userData.gym,
         newWorkoutType: userData.workoutType,
         newTimings: userData.timings,
@@ -69,7 +69,7 @@ const updateUser = async (userData: Omit<FormData, 'onSignOut'>) => {
     };
 
     try {
-        const response = await fetch('http://localhost:5000/api/dash/updateUser', {
+        const response = await fetch('http://localhost:5001/api/users/update', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

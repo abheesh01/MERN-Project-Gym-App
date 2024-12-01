@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import '../styles/dashboard.css';
 
+
 // Interface for form data properties
 interface FormData {
     name: string;
@@ -27,7 +28,7 @@ interface Trainee {
 
 const fetchTrainees = async (setTrainees: { (value: React.SetStateAction<Trainee[]>): void; (arg0: Trainee[]): void; }) => {
     try {
-        const response = await fetch('http://localhost:5000/api/dash/trainees', {
+        const response = await fetch('http://localhost:5001/api/dash/trainees', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
