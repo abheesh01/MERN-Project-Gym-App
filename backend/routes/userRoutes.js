@@ -7,8 +7,10 @@ const router = express.Router();
 router.post('/register', registerUser);
 
 // Route to login a new user
-router.post('/login', loginUser)
+router.post('/login', loginUser);
 
-router.put('/update', updateUser)
+router.put('/update', updateUser);
+
+router.put('/delete', deleteUser);
 
 module.exports = router;
