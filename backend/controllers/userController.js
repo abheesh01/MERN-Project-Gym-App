@@ -178,4 +178,29 @@ const updateUser = async (req, res) => {
     }
 }
 
-module.exports = { registerUser, loginUser, updateUser };
+const deleteUser = async (req, res) => {
+    const { username } = req.body;
+
+    // Validate input
+    if (!username) {
+        return res.status(400).json({ message: 'Please provide a username.'});
+    }
+    try{
+        const user = await Trainee.findOne({ userName: username}) || await Trainer.findOne({ userName: username });
+        if (!user){
+            return res.status(404).json({ message: 'User not found.' });
+        }
+        if (user instanceof Trainee){
+            await Trainee.deleteOne({ userName: username });
+        } else if (user instanceof Trainer){
+            await Trainer.deleteOne({ userName: username });
+        }
+
+        res.status(200).json({ message: 'User deleted successfully.' });
+    } catch (error){
+        console.error( 'Error occurred while deleting user.' );
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
+module.exports = { registerUser, loginUser, updateUser, deleteUser };
