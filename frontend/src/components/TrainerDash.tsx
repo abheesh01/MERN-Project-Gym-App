@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import '../styles/dashboard.css';
 
+
 // Interface for form data properties
 interface FormData {
     name: string;
@@ -27,7 +28,7 @@ interface Trainee {
 
 const fetchTrainees = async (setTrainees: { (value: React.SetStateAction<Trainee[]>): void; (arg0: Trainee[]): void; }) => {
     try {
-        const response = await fetch('http://localhost:5000/api/dash/trainees', {
+        const response = await fetch('http://localhost:5001/api/dash/trainees', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -245,7 +246,7 @@ const TrainerDash: React.FC<FormData> = ({ name, gym, workoutType, timings, idea
                         <h2>Account Information</h2>
                         <div className="form-group">
                             <label>Name</label>
-                            <input type="text" name="name" value={editableAccount.name} onChange={handleAccountChange} />
+                            <input type="text" name="name" value={editableAccount.name} onChange={handleAccountChange} readOnly={true} />
                         </div>
                         <div className="form-group">
                             <label>Gym</label>

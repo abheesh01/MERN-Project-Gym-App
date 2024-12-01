@@ -136,4 +136,46 @@ const loginUser = async (req, res) => {
     }
 };
 
-module.exports = { registerUser, loginUser };
+const updateUser = async (req, res) => {
+    const {name, newGym, newWorkoutType, newTimings, newIdealRate } = req.body;
+
+    // Validate input
+    if (!newGym || !newWorkoutType || !newTimings || !newIdealRate) {
+        return res.status(400).json({ message: 'Please provide all required fields' });
+    }
+
+    try {
+        // Update the user
+        const searchByName = name.split(" ")[0];
+        const user = await Trainee.findOne({firstName: searchByName}) || await Trainer.findOne({firstName: searchByName});
+        console.log('user: ', user);
+        // const [newFirstName, newLastName] = newName.split(' ');
+        // user.firstName = newFirstName;
+        // user.lastName = newLastName;
+        user.locationPref = newGym;
+        user.workoutType = newWorkoutType;
+        user.timings = newTimings;
+        user.idealRate = newIdealRate;
+        await user.save();
+
+        res.status(200).json({ 
+            message: 'User updated successfully', 
+            user: {
+            id: user._id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            userType: user instanceof Trainee ? 'trainee' : 'trainer',
+            gym: user.gym,
+            workoutType: user.workoutType,
+            timings: user.timings,
+            idealRate: user.idealRate,
+            }
+        });
+    } catch (error) {
+        console.error('Error updating user:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+}
+
+module.exports = { registerUser, loginUser, updateUser };
